@@ -13,7 +13,7 @@
  *   - add each card's HTML to the page
  */
  CardShuffle(deckOfCards);
- 
+
  function CardShuffle(array){
  	shuffle(array);
  	const deck = document.getElementById("deck");
@@ -22,8 +22,6 @@
  	document.getElementById("deck").children[i].children[0].setAttribute("class","fa " + card);
  }
 }
-
-
 
 
 
@@ -53,3 +51,17 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+document.getElementById("restart").addEventListener("click" ,function(){
+	CardShuffle(deckOfCards);
+	for (i = 0; i < 16; i++) {
+		document.getElementById("deck").children[i].setAttribute("class","card");
+	}
+
+});
+
+
+
+
+
+
