@@ -1,7 +1,11 @@
 /*
  * Create a list that holds all of your cards
  */
+let bla = document.getElementById("1");
 
+bla.addEventListener("click", function (){
+bla.setAttribute("class", "card open show")
+});
 
 /*
  * Display the cards on the page
