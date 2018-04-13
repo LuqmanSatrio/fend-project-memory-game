@@ -52,16 +52,62 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-document.getElementById("restart").addEventListener("click" ,function(){
-	CardShuffle(deckOfCards);
-	for (i = 0; i < 16; i++) {
-		document.getElementById("deck").children[i].setAttribute("class","card");
+let cardsopen = 0;
+let firstcard ;
+let secondcard ;
+let matches = 0;
+
+//starting function to open a card and compare it to
+function compareCard(){
+	for (i = 0; i < 16; i++){
+		let pickedCard = document.getElementById("deck").children[i];
+    pickedCard.addEventListener("click", function basic(){
+
+
+			if(cardsopen == 0){
+		pickedCard.setAttribute("class","card open show")
+		firstcard = pickedCard;
+	    cardsopen++;
 	}
+	  else if(cardsopen == 1){
+    pickedCard.setAttribute("class","card open show");
+    secondcard = pickedCard;
+    cardsopen = 0;
+    setTimeout(function()
+    	{ evalComparism()}, 700);
+}})}}
 
+compareCard();
+
+//evaluates firstCard and secondCard. If they are equal, the cards class match is beeing added
+function evalComparism(){
+	if (firstcard.children[0].classList.value == secondcard.children[0].classList.value){
+		firstcard.setAttribute("class","card match");
+		secondcard.setAttribute("class","card match");
+		firstcard.addEventListener("click",function(){});
+		matches++;
+		firstcard.style.pointerEvents = "none";
+		secondcard.style.pointerEvents = "none";
+
+
+	} else {
+		firstcard.setAttribute("class", "card");
+		secondcard.setAttribute("class", "card");
+	}
+}
+
+
+
+
+//Restart Handler
+document.getElementById("restart").addEventListener("click" ,function(){
+  CardShuffle(deckOfCards);
+  cardsopen = 0;
+  for (i = 0; i < 16; i++) {
+    document.getElementById("deck").children[i].setAttribute("class","card");
+    document.getElementById("deck").children[i].style.pointerEvents = "";
+  }
 });
-
-
-
 
 
 
