@@ -56,14 +56,15 @@ let cardsopen = 0;
 let firstcard ;
 let secondcard ;
 let matches = 0;
+let moves = 0;
 
 //starting function to open a card and compare it to
 function compareCard(){
 	for (i = 0; i < 16; i++){
 		let pickedCard = document.getElementById("deck").children[i];
     pickedCard.addEventListener("click", function basic(){
-
-
+movesCounter();
+        matches++;
 			if(cardsopen == 0){
 		pickedCard.setAttribute("class","card open show")
 		firstcard = pickedCard;
@@ -85,7 +86,6 @@ function evalComparism(){
 		firstcard.setAttribute("class","card match");
 		secondcard.setAttribute("class","card match");
 		firstcard.addEventListener("click",function(){});
-		matches++;
 		firstcard.style.pointerEvents = "none";
 		secondcard.style.pointerEvents = "none";
 
@@ -96,13 +96,19 @@ function evalComparism(){
 	}
 }
 
-
+//counts the moves
+function movesCounter(){
+moves ++;
+document.getElementById("moves").innerText = moves;
+}
 
 
 //Restart Handler
 document.getElementById("restart").addEventListener("click" ,function(){
   CardShuffle(deckOfCards);
   cardsopen = 0;
+  moves = -1;
+ movesCounter();
   for (i = 0; i < 16; i++) {
     document.getElementById("deck").children[i].setAttribute("class","card");
     document.getElementById("deck").children[i].style.pointerEvents = "";
