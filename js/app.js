@@ -63,8 +63,7 @@ function compareCard(){
 	for (i = 0; i < 16; i++){
 		let pickedCard = document.getElementById("deck").children[i];
     pickedCard.addEventListener("click", function basic(){
-movesCounter();
-        matches++;
+    movesCounter();
 			if(cardsopen == 0){
 		pickedCard.setAttribute("class","card open show")
 		firstcard = pickedCard;
@@ -88,6 +87,8 @@ function evalComparism(){
 		firstcard.addEventListener("click",function(){});
 		firstcard.style.pointerEvents = "none";
 		secondcard.style.pointerEvents = "none";
+         matches++;
+        won();
 
 
 	} else {
@@ -102,6 +103,13 @@ moves ++;
 document.getElementById("moves").innerText = moves;
 }
 
+// determines wether all matches has been found or not
+function won(){
+
+    if (matches == 8){
+        alert("You won!");
+    }
+}
 
 //Restart Handler
 document.getElementById("restart").addEventListener("click" ,function(){
