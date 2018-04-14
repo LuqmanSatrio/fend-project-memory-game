@@ -1,3 +1,13 @@
+
+// variables needed for the js to work and its starting value
+let cardsopen = 0;
+let firstcard ;
+let secondcard ;
+let matches = 0;
+let moves = 0;
+let stars = 3;
+
+
 /*
  * Create a list that holds all of your cards
  */
@@ -7,13 +17,28 @@
  "fa-leaf","fa-bicycle","fa-bomb"];
 
 /*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
+ * Sets up the event Listener to every single card and ensures the functionality of the game mechanism
  */
- CardShuffle(deckOfCards);
+compareCard();
 
+/*
+ * sets up the default for the game (stars, time, moves)
+ */
+restart();
+
+
+/*
+ * Sets up the timer.
+ * source: https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
+ */
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+setInterval(setTime, 1000);
+
+/*
+ * shuffles the card and allign them to its HTML
+ */
  function CardShuffle(array){
  	shuffle(array);
  	const deck = document.getElementById("deck");
@@ -21,6 +46,22 @@
 	let card = deckOfCards[i];
  	document.getElementById("deck").children[i].children[0].setAttribute("class","fa " + card);
  }
+}
+/*
+ * Sets up the modal.
+ * source modal: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal
+ */
+
+var modal = document.getElementById('myModal');
+var span = document.getElementsByClassName("close")[0];
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 
 
@@ -41,26 +82,11 @@ function shuffle(array) {
 }
 
 
+
+
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
+ *  Opens up a card. If its the second card the function evalComparism() is called
  */
-
-let cardsopen = 0;
-let firstcard ;
-let secondcard ;
-let matches = 0;
-let moves = 0;
-let stars = 3;
-
-
-//starting function to open a card and compare it to
 function compareCard(){
 	for (i = 0; i < 16; i++){
 		let pickedCard = document.getElementById("deck").children[i];
@@ -81,7 +107,6 @@ function compareCard(){
     	{ evalComparism()}, 700);
 }})}}
 
-compareCard();
 
 //evaluates firstCard and secondCard. If they are equal, the cards class match is beeing added
 function evalComparism(){
@@ -102,82 +127,63 @@ function evalComparism(){
 
 if(moves>12)
 {
-  stars = 2;
   removeFirstStar();
 }
 else if(moves>18){
-  stars = 1;
   removeSecondStar();
 }
 unBlockDeck();
 blockAllMatchedCard();
 }
 
-function blockAllMatchedCard(){
-  var elms = document.getElementsByClassName('match')
-for (var i = 0; i < elms.length; i++) {
-  elms[i].style.pointerEvents = "none";
-}
-}
-
-//counts the moves
+// counts the moves
 function movesCounter(){
 moves ++;
 document.getElementById("moves").innerText = moves;
 }
 
-// determines wether all matches has been found or not
+// determines wether all matches has been made or not, if yes showModal is called
 function won(){
-
     if (matches == 8){
         showModal();
     }
 }
 
+/*
+ * removes the first star
+ */
 function removeFirstStar()
 {
-  document.getElementById("firstStar").style.display = "none";
+  stars = 2;
+  document.getElementById("firstStar").style.color = "black";
 }
 
+/*
+ * removes the second star
+ */
 function removeSecondStar(){
-  document.getElementById("secondStar").style.display = "none";
+   stars = 1;
+  document.getElementById("secondStar").style.color = "black";
 }
 
+/*
+ * brings the stars in its default situation
+ */
 function showStars(){
-document.getElementById("firstStar").style.display = "";
-document.getElementById("secondStar").style.display = "";
-}
-//Restart Handler
-document.getElementById("restart").addEventListener("click" ,function(){
-  totalSeconds = -1;
-  CardShuffle(deckOfCards);
-  cardsopen = 0;
-  moves = -1;
- movesCounter();
-  for (i = 0; i < 16; i++) {
-    document.getElementById("deck").children[i].setAttribute("class","card");
-    document.getElementById("deck").children[i].style.pointerEvents = "";
-  }
-  showStars();
-
-});
-
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
+document.getElementById("firstStar").style.color = "orange";
+document.getElementById("secondStar").style.color = "orange";
+document.getElementById("thirdStar").style.color = "orange";
 }
 
-var modal = document.getElementById('myModal');
 
+/*
+ * opens up the modal. Is called when the player has won
+ */
 function showModal(){
 document.getElementById("secondLineModal").textContent = "You got "+ stars +" stars with " +moves +" moves, after "+totalSeconds +" seconds";
 modal.style.display = "block";
 }
-var span = document.getElementsByClassName("close")[0];
-span.onclick = function() {
-    modal.style.display = "none";
-}
+
 //blocks a specific card
 function blockCard(card){
 card.style.pointerEvents = "none";
@@ -194,6 +200,7 @@ function blockDeck(){
     document.getElementById("deck").children[i].style.pointerEvents = "none";
   }
 }
+
 //unblocks the whole deck of card
 function unBlockDeck(){
  for (i = 0; i < 16; i++) {
@@ -201,14 +208,19 @@ function unBlockDeck(){
   }
 }
 
+/*
+ * block all the cars that has been matched, so the cards cant be picked again
+ */
+function blockAllMatchedCard(){
+  var elms = document.getElementsByClassName('match')
+for (var i = 0; i < elms.length; i++) {
+  elms[i].style.pointerEvents = "none";
+}
+}
 
-
-//https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
-var minutesLabel = document.getElementById("minutes");
-var secondsLabel = document.getElementById("seconds");
-var totalSeconds = 0;
-setInterval(setTime, 1000);
-
+/*
+ * sets up timer
+ */
 function setTime() {
   ++totalSeconds;
   secondsLabel.innerHTML = pad(totalSeconds % 60);
@@ -224,3 +236,21 @@ function pad(val) {
   }
 }
 
+/*
+ * restarts the game
+ */
+
+ function restart(){
+document.getElementById("restart").addEventListener("click" ,function(){
+  totalSeconds = -1;
+  CardShuffle(deckOfCards);
+  cardsopen = 0;
+  stars = 3;
+  moves = 0;
+document.getElementById("moves").innerText = moves;
+  for (i = 0; i < 16; i++) {
+    document.getElementById("deck").children[i].setAttribute("class","card");
+    document.getElementById("deck").children[i].style.pointerEvents = "";
+  }
+  showStars();
+})};

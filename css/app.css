@@ -139,6 +139,8 @@ display:inline-block;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+    font-family: sans-serif;
+
 }
 
 .mainContentModal{
@@ -147,6 +149,7 @@ display:inline-block;
 
 #modalHeader{
     font-size: 30px;
+
 }
 
 #firstLineModal{
