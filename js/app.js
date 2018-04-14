@@ -63,7 +63,6 @@ function compareCard(){
 	for (i = 0; i < 16; i++){
 		let pickedCard = document.getElementById("deck").children[i];
     pickedCard.addEventListener("click", function basic(){
-    movesCounter();
 			if(cardsopen == 0){
 		pickedCard.setAttribute("class","card open show")
 		firstcard = pickedCard;
@@ -71,6 +70,7 @@ function compareCard(){
       blockCard(firstcard);
 	}
 	  else if(cardsopen == 1){
+      movesCounter();
     pickedCard.setAttribute("class","card open show");
     secondcard = pickedCard;
     cardsopen = 0;
