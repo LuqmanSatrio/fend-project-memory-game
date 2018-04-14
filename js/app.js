@@ -74,9 +74,7 @@ function compareCard(){
     pickedCard.setAttribute("class","card open show");
     secondcard = pickedCard;
     cardsopen = 0;
-     for (i = 0; i < 16; i++) {
-    document.getElementById("deck").children[i].style.pointerEvents = "none";
-  }
+    blockDeck();
     setTimeout(function()
     	{ evalComparism()}, 700);
 }})}}
@@ -91,17 +89,13 @@ function evalComparism(){
 		firstcard.setAttribute("class","card match");
 		secondcard.setAttribute("class","card match");
 		firstcard.addEventListener("click",function(){});
-    unBlockDeck();
-		blockCard(firstcard);
-    blockCard(secondcard);
-         matches++;
-        won();
+      matches++;
+      won();
 
 
 	} else {
 		firstcard.setAttribute("class", "card");
 		secondcard.setAttribute("class", "card");
-    unBlockDeck();
 	}
 
 if(moves>12)
@@ -111,7 +105,15 @@ if(moves>12)
 else if(moves>18){
   removeSecondStar();
 }
+unBlockDeck();
+blockAllMatchedCard();
+}
 
+function blockAllMatchedCard(){
+  var elms = document.getElementsByClassName('match')
+for (var i = 0; i < elms.length; i++) {
+  elms[i].style.pointerEvents = "none";
+}
 }
 
 //counts the moves
@@ -165,12 +167,19 @@ function unBlockCard(card){
   card.style.pointerEvents = "";
 }
 
+//blocks the whole deck of card
+function blockDeck(){
+ for (i = 0; i < 16; i++) {
+    document.getElementById("deck").children[i].style.pointerEvents = "none";
+  }
+}
 //unblocks the whole deck of card
 function unBlockDeck(){
  for (i = 0; i < 16; i++) {
     document.getElementById("deck").children[i].style.pointerEvents = "";
   }
 }
+
 
 
 //https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
