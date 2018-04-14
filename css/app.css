@@ -102,7 +102,9 @@ h1 {
 
  #time
  {
-text-align: right;
+    margin-right: 10px;
+float:right;
+display:inline-block;
  }
 
 .score-panel .stars li {

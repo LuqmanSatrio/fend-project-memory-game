@@ -92,8 +92,8 @@ function evalComparism(){
 		secondcard.setAttribute("class","card match");
 		firstcard.addEventListener("click",function(){});
     unBlockDeck();
-		BlockCard(firstcard);
-    BlockCard(secondcard);
+		blockCard(firstcard);
+    blockCard(secondcard);
          matches++;
         won();
 
@@ -104,7 +104,13 @@ function evalComparism(){
     unBlockDeck();
 	}
 
-
+if(moves>12)
+{
+  removeFirstStar();
+}
+else if(moves>18){
+  removeSecondStar();
+}
 
 }
 
@@ -122,12 +128,26 @@ function won(){
     }
 }
 
+function removeFirstStar()
+{
+  document.getElementById("firstStar").style.display = "none";
+}
+
+function removeSecondStar(){
+  document.getElementById("secondStar").style.display = "none";
+}
+
+function showStars(){
+document.getElementById("firstStar").style.display = "";
+document.getElementById("secondStar").style.display = "";
+}
 //Restart Handler
 document.getElementById("restart").addEventListener("click" ,function(){
   totalSeconds = -1;
   CardShuffle(deckOfCards);
   cardsopen = 0;
   moves = -1;
+  showStars();
  movesCounter();
   for (i = 0; i < 16; i++) {
     document.getElementById("deck").children[i].setAttribute("class","card");
