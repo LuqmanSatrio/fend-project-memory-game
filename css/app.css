@@ -52,7 +52,7 @@ h1 {
 }
 
 .deck .card {
-   
+
     height: 125px;
     width: 125px;
     background: #2e3d49;
@@ -100,12 +100,17 @@ h1 {
     margin: 0 5px 0 0;
 }
 
+ #time
+ {
+text-align: right;
+ }
+
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
 }
 
-.score-panel #restart {
+ #restart {
     float: right;
     cursor: pointer;
 }

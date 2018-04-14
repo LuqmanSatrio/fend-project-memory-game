@@ -68,11 +68,15 @@ function compareCard(){
 		pickedCard.setAttribute("class","card open show")
 		firstcard = pickedCard;
 	    cardsopen++;
+      blockCard(firstcard);
 	}
 	  else if(cardsopen == 1){
     pickedCard.setAttribute("class","card open show");
     secondcard = pickedCard;
     cardsopen = 0;
+     for (i = 0; i < 16; i++) {
+    document.getElementById("deck").children[i].style.pointerEvents = "none";
+  }
     setTimeout(function()
     	{ evalComparism()}, 700);
 }})}}
@@ -81,12 +85,15 @@ compareCard();
 
 //evaluates firstCard and secondCard. If they are equal, the cards class match is beeing added
 function evalComparism(){
+
+
 	if (firstcard.children[0].classList.value == secondcard.children[0].classList.value){
 		firstcard.setAttribute("class","card match");
 		secondcard.setAttribute("class","card match");
 		firstcard.addEventListener("click",function(){});
-		firstcard.style.pointerEvents = "none";
-		secondcard.style.pointerEvents = "none";
+    unBlockDeck();
+		BlockCard(firstcard);
+    BlockCard(secondcard);
          matches++;
         won();
 
@@ -94,7 +101,11 @@ function evalComparism(){
 	} else {
 		firstcard.setAttribute("class", "card");
 		secondcard.setAttribute("class", "card");
+    unBlockDeck();
 	}
+
+
+
 }
 
 //counts the moves
@@ -113,6 +124,7 @@ function won(){
 
 //Restart Handler
 document.getElementById("restart").addEventListener("click" ,function(){
+  totalSeconds = -1;
   CardShuffle(deckOfCards);
   cardsopen = 0;
   moves = -1;
@@ -123,5 +135,42 @@ document.getElementById("restart").addEventListener("click" ,function(){
   }
 });
 
+//blocks a specific card
+function blockCard(card){
+card.style.pointerEvents = "none";
+}
 
+//unblocks a given card
+function unBlockCard(card){
+  card.style.pointerEvents = "";
+}
+
+//unblocks the whole deck of card
+function unBlockDeck(){
+ for (i = 0; i < 16; i++) {
+    document.getElementById("deck").children[i].style.pointerEvents = "";
+  }
+}
+
+
+//https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+setInterval(setTime, 1000);
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
 
