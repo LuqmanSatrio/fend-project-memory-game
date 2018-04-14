@@ -57,6 +57,8 @@ let firstcard ;
 let secondcard ;
 let matches = 0;
 let moves = 0;
+let stars = 3;
+
 
 //starting function to open a card and compare it to
 function compareCard(){
@@ -100,9 +102,11 @@ function evalComparism(){
 
 if(moves>12)
 {
+  stars = 2;
   removeFirstStar();
 }
 else if(moves>18){
+  stars = 1;
   removeSecondStar();
 }
 unBlockDeck();
@@ -126,7 +130,7 @@ document.getElementById("moves").innerText = moves;
 function won(){
 
     if (matches == 8){
-        alert("You won!");
+        showModal();
     }
 }
 
@@ -149,14 +153,31 @@ document.getElementById("restart").addEventListener("click" ,function(){
   CardShuffle(deckOfCards);
   cardsopen = 0;
   moves = -1;
-  showStars();
  movesCounter();
   for (i = 0; i < 16; i++) {
     document.getElementById("deck").children[i].setAttribute("class","card");
     document.getElementById("deck").children[i].style.pointerEvents = "";
   }
+  showStars();
+
 });
 
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+var modal = document.getElementById('myModal');
+
+function showModal(){
+document.getElementById("secondLineModal").textContent = "You got "+ stars +" stars with " +moves +" moves, after "+totalSeconds +" seconds";
+modal.style.display = "block";
+}
+var span = document.getElementsByClassName("close")[0];
+span.onclick = function() {
+    modal.style.display = "none";
+}
 //blocks a specific card
 function blockCard(card){
 card.style.pointerEvents = "none";
