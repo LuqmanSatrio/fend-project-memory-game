@@ -3,18 +3,21 @@
 ## Table of Contents
 
 * [How to play the game](#how-to-play-the-game)
-* [Contributing](#contributing)
+* [Ressources](#ressources)
 
 ## How to play the game
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+To start the game just open the index.html file.
 
-To get started, open `js/app.js` and start building out the app's functionality
+The game is a typical game of memory. Try to find matching cards. If you can finish the game with less then 13 moves you'll get 3 stars. Less then 19 moves and you'll get 2 stars. More than that you'll get 1 star. In addition to your amount of moves, the time is beeing tracked.
 
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+After you won the amount of moves and the time you needed will be displayed.
+To restart the game just click the restart button.
 
-## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+## Ressources
+For the [shuffle function](http://stackoverflow.com/a/2450976 )
 
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+For the [modal](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal) which is shown when the player has won
+
+For the [timer](https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript)
