@@ -4,6 +4,7 @@
 
 * [How to play the game](#how-to-play-the-game)
 * [Ressources](#ressources)
+* [Dependencies](#dependencies)
 
 ## How to play the game
 
@@ -21,3 +22,7 @@ For the [shuffle function](http://stackoverflow.com/a/2450976 )
 For the [modal](https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal) which is shown when the player has won
 
 For the [timer](https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript)
+
+## Dependencies
+[Bootstrap](https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css)
+[Google Fonts](https://fonts.googleapis.com/css?family=Coda)
