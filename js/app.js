@@ -36,6 +36,7 @@ var secondsLabel = document.getElementById("seconds");
 var totalSeconds = 0;
 setInterval(setTime, 1000);
 
+
 /*
  * shuffles the card and allign them to its HTML
  */
@@ -99,6 +100,7 @@ function compareCard(){
 	}
 	  else if(cardsopen == 1){
       movesCounter();
+
     pickedCard.setAttribute("class","card open show");
     secondcard = pickedCard;
     cardsopen = 0;
@@ -110,7 +112,6 @@ function compareCard(){
 
 //evaluates firstCard and secondCard. If they are equal, the cards class match is beeing added
 function evalComparism(){
-
 
 	if (firstcard.children[0].classList.value == secondcard.children[0].classList.value){
 		firstcard.setAttribute("class","card match");
@@ -125,30 +126,40 @@ function evalComparism(){
 		secondcard.setAttribute("class", "card");
 	}
 
-if(moves>12)
+  unBlockDeck();
+  blockAllMatchedCard();
+}
+
+
+// counts the moves
+function movesCounter(){
+moves ++;
+document.getElementById("moves").innerText = moves;
+  removeStar();
+}
+
+// determines wether all matches has been made or not, if yes showModal is called
+function won(){
+    if (matches == 8){
+        showModal();
+
+        play = false;
+    }
+}
+
+function removeStar(){
+
+  if(moves==13)
 {
   removeFirstStar();
 }
-else if(moves>18){
+else if(moves==18){
   removeSecondStar();
 }
 unBlockDeck();
 blockAllMatchedCard();
 }
 
-// counts the moves
-function movesCounter(){
-moves ++;
-document.getElementById("moves").innerText = moves;
-}
-
-// determines wether all matches has been made or not, if yes showModal is called
-function won(){
-    if (matches == 1){
-        showModal();
-        restart();
-    }
-}
 
 /*
  * removes the first star
@@ -222,10 +233,26 @@ for (var i = 0; i < elms.length; i++) {
 /*
  * sets up timer
  */
+ let seconds;
+ let minutes;
+ let play = true;
 function setTime() {
+
+if(play){
   ++totalSeconds;
-  secondsLabel.innerHTML = pad(totalSeconds % 60);
-  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+  seconds = pad(totalSeconds % 60);
+  secondsLabel.innerHTML = seconds;
+
+  minutes = pad(parseInt(totalSeconds / 60));
+  minutesLabel.innerHTML = minutes;
+}
+else {
+  seconds = pad(totalSeconds % 60);
+  secondsLabel.innerHTML = seconds;
+
+  minutes = pad(parseInt(totalSeconds / 60));
+  minutesLabel.innerHTML = minutes;
+}
 }
 
 function pad(val) {
@@ -243,7 +270,7 @@ function pad(val) {
 
  function restart(){
 document.getElementById("restart").addEventListener("click" ,function(){
-  totalSeconds = -1;
+  totalSeconds = 0;
   CardShuffle(deckOfCards);
   cardsopen = 0;
   stars = 3;
@@ -255,4 +282,5 @@ document.getElementById("moves").innerText = moves;
     document.getElementById("deck").children[i].style.pointerEvents = "";
   }
   showStars();
+play = true;
 })};
