@@ -26,7 +26,7 @@ compareCard();
  */
 restart();
 
-
+showStars();
 /*
  * Sets up the timer.
  * source: https://stackoverflow.com/questions/5517597/plain-count-up-timer-in-javascript
@@ -144,8 +144,9 @@ document.getElementById("moves").innerText = moves;
 
 // determines wether all matches has been made or not, if yes showModal is called
 function won(){
-    if (matches == 8){
+    if (matches == 1){
         showModal();
+        restart();
     }
 }
 
@@ -247,6 +248,7 @@ document.getElementById("restart").addEventListener("click" ,function(){
   cardsopen = 0;
   stars = 3;
   moves = 0;
+  matches = 0;
 document.getElementById("moves").innerText = moves;
   for (i = 0; i < 16; i++) {
     document.getElementById("deck").children[i].setAttribute("class","card");
