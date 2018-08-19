@@ -1,4 +1,5 @@
-.DS_Store
-.htmlhintrc
-.stylelintrc
-.eslintrc.json
+node_modules
+dist
+.tmp
+bower_components
+test/bower_components
